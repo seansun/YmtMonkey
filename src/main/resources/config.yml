@@ -1,0 +1,47 @@
+capability:
+  newCommandTimeout: 120
+  launchTimeout: 120000
+  platformName: ""
+  autoWebview: "false"
+  autoLaunch: "true"
+  noReset: "true"
+  time: 1800
+androidCapability:
+  appPackage: "com.ymatou.shop"
+  appActivity: ".ui.activity.SplashActivity"
+  logCmd: "adb -s #udid# logcat -b main -b system -b events -b radio *:D | grep com.ymatou.shop"
+  deviceNames:
+    #模拟器
+    - deviceName: "127.0.0.1:62001"
+      platformVersion: "4.4.2"
+      #app: ""
+      appium: "http://127.0.0.1:4723/wd/hub"
+    #荣耀8
+    - deviceName: "NXTDU16B05010871"
+      platformVersion: "7.0"
+      #aapp: ""
+      appium: "http://127.0.0.1:4723/wd/hub"
+    #vivo
+    - deviceName: "94fabcfa"
+      platformVersion: "5.1.1"
+      #app: ""
+      appium: "http://127.0.0.1:4723/wd/hub"
+   #xiaomi
+    - deviceName: "INMN8TDIK7QKH6EI"
+      platformVersion: "6.0"
+      #app: ""
+      appium: "http://127.0.0.1:4723/wd/hub"
+   #锤子
+    - deviceName: "2bad9d02"
+      platformVersion: "5.1.1"
+      #app: ""
+      appium: "http://127.0.0.1:4723/wd/hub"
+iosCapability:
+  deviceName: "iPhone 6 Plus"
+  logCmd: "idevicesyslog -d -u #udid#|grep xxx"
+  bundleId: ""
+  screenshotWaitTimeout: "10"
+  platformVersion: "9.3"
+  autoAcceptAlerts: "true"
+  #app: ""
+  appium: "http://127.0.0.1:4730/wd/hub"

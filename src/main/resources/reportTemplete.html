@@ -1,0 +1,319 @@
+<html>
+ <head> 
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+  
+  	<script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+	<script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+	<script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+  <title>Report</title> 
+  <style type="text/css">
+            table{
+                border:0;
+                cellspacing:0;
+                cellpadding:0;
+            }
+             
+            table tr{
+                border:none;
+                padding:0;
+                margin:0;
+            }
+ 
+            table td{
+                background:#CAE1FF;
+                border-bottom:0px solid #ccc;
+                border-top:0px solid #ccc;
+                margin:0;
+                padding:7px;
+            }
+ 
+           table th{
+                background:#6495ED;
+                border-bottom:0px solid #ccc;
+                border-top:0px solid #ccc;
+                margin:0;
+                padding:7px;
+            }
+ 
+            table td:hover{
+                background:#FFF;
+                cursor:pointer;
+            }
+ 
+			.name
+			{
+				font-weight:bold ;
+			}
+			
+		
+		* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ 
+body {
+  //padding: 20px;
+  text-align: center;
+  font-family: Lato;
+  color: #000;
+  background: #F8F8F8;
+}
+ 
+.tabs {
+  width: 99%;
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 10px 10px 10px 10px;
+  text-align: left;
+}
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.tabs label {
+color:#fff;
+  display: block;
+  padding: 14px 21px;
+  border-radius: 2px 2px 0 0;
+  font-size: 20px;
+  font-weight: border;
+  text-transform: uppercase;
+  background: #46A3ff;
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.tabs label:hover {
+  background: #004B97;
+}
+.tabs .tab-content {
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  background: #C4E1FF;
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0;
+  padding-top: 17px;
+  background: #0072e3;
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+}
+
+.tabs p
+{
+color:#000;
+}
+
+.pictable img:hover
+{
+	width:460px;
+	height:760px;
+}
+        </style> 
+ </head> 
+ 
+ <body> 
+ 
+
+   <!--<h1 style="color:green;">Report</h1> -->
+
+<ul class="tabs">
+<li>
+<input type="radio" name="tabs" id="tab1" checked />
+<label for="tab1">基本信息</label>
+<div id="tab-content1" class="tab-content">
+<p>
+<table border="0" bordercolor="LightGrey" bgcolor="WhiteSmoke" width="100%" cellpadding="8px"> 
+    <tbody>
+     <tr> 
+      <td class="name">Device</td> 
+      <td id="device" class="value">deviceName SM801,systemVersion 5.1.1,resolution 1080x1920</td> 
+     </tr> 
+     <tr> 
+      <td class="name">App info</td> 
+      <td id="app" class="value">appPackageName com.ymatou.shop,appVersion 3.7.0</td> 
+     </tr> 
+     <tr> 
+      <td class="name">Total Step</td> 
+      <td id="steps" class="value">392</td> 
+     </tr> 
+     <tr> 
+      <td class="name">During Time</td> 
+      <td id="time" class="value">598 s</td> 
+     </tr> 
+    </tbody>
+   </table> 
+</p>
+</div>
+</li>
+
+<li>
+<input type="radio" name="tabs" id="tab2" />
+<label for="tab2">页面访问统计</label>
+<div id="tab-content2" class="tab-content" style="overflow:scroll">
+
+<table border="0" bordercolor="LightGrey" bgcolor="WhiteSmoke" width="100%" cellpadding="8px"> 
+      <tbody id="pageInfo"> 
+       <tr> 
+        <th style="width:35%;font-weight:bold;">pageName</th> 
+        <th style="width:8%;font-weight:bold;">count</th> 
+       </tr> 
+
+      </tbody> 
+     </table> 
+<p></p>
+</div>
+</li>
+ 
+<li>
+<input type="radio" name="tabs" id="tab3" />
+<label for="tab3" id="detailTitle">最后15步操作步骤明细</label>
+<div id="tab-content3" class="tab-content"  style="overflow:scroll">
+	<table id="detail" bordercolor="LightGrey" bgcolor="WhiteSmoke" width="100%" cellpadding="1px" class="pictable" > 
+		
+    </table> 
+<p></p>
+</div>
+</li>
+
+<li>
+<input type="radio" name="tabs" id="tab4" />
+<label for="tab4" id="detailTitle">cpu memery</label>
+<div id="tab-content4" class="tab-content"  style="overflow:scroll">
+<div id="container1" style="width:98%;height:400px"></div>
+<div id="container2" style="width:98%;height:400px"></div>
+
+	<script>
+	$(function () {
+    $('#container1').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: 'CPU占用率'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+			categories: timeLine
+            
+        },
+        yAxis: {
+            title: {
+                text: '%'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} 占用 <b>{point.y:,.0f}</b>%'
+        },
+
+        series: [{
+            name: 'CPU',
+            data: data1
+        }]
+    });
+	
+	 $('#container2').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: '内存使用情况MB'
+        },
+        subtitle: {
+            text: '总内存'+totalMem+'MB'
+        },
+        xAxis: {
+		categories: timeLine
+
+            /*allowDecimals: false,
+            labels: {
+                formatter: function () {
+                    return this.value; // clean, unformatted number for year
+                }
+            }*/
+        },
+        yAxis: {
+            title: {
+                text: 'MB'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} 使用 <b>{point.y:,.0f}</b>MB'
+        },
+        /*plotOptions: {
+            area: {
+                pointStart: 1940,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },*/
+        series: [{
+            name: 'Memery',
+            data: data2
+        }]
+    });
+});
+
+
+</script>
+</div>
+</li>
+
+<li>
+<input type="radio" name="tabs" id="tab5" />
+<label for="tab5">日志</label>
+<div id="tab-content5" class="tab-content">
+<p id="logs">
+ 
+</p>
+</div>
+</li>
+
+
+</ul>
+
+ </body>
+</html>
