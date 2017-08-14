@@ -64,7 +64,7 @@ public class CmdUtil {
 
         logger.debug("执行的cmd 命令为 : {}", cmd);
         logger.debug("执行的cmd 命令结果为 : {}", cmdOut);
-        return null == cmdOut ? null : cmdOut.trim();
+        return cmdOut.trim();
     }
 
     /**
@@ -74,7 +74,7 @@ public class CmdUtil {
      */
     public static boolean isWindows() {
         String os = System.getProperty("os.name");
-        return (os.toLowerCase().startsWith("win")) ? true : false;
+        return os.toLowerCase().startsWith("win");
     }
 
     public BufferedReader getBufferedReader(String cmd) {
@@ -106,11 +106,8 @@ public class CmdUtil {
 
     public static void main(String args[]) {
 
-        CmdUtil cmd = new CmdUtil();
+        System.out.println("iswindows:"+CmdUtil.isWindows());
 
-        cmd.run("taskkill /f /t /im cmd.exe");
-        cmd.run("taskkill /f /t /im adb.exe");
-        cmd.run("taskkill /f /t /im conhost.exe");
 
 
     }
