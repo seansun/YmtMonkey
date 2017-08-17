@@ -39,9 +39,8 @@ androidCapability:
 iosCapability:
   deviceName: "iPhone 6 Plus"
   logCmd: "idevicesyslog -d -u #udid#|grep xxx"
-  bundleId: ""
-  screenshotWaitTimeout: "10"
-  platformVersion: "9.3"
+  bundleId: "com.ymatou.Shopping"
+  platformVersion: "9.3.1"
   autoAcceptAlerts: "true"
   #app: ""
   appium: "http://127.0.0.1:4730/wd/hub"
