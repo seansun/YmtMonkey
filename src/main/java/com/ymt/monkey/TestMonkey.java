@@ -162,7 +162,7 @@ public class TestMonkey {
 
         Thread.sleep(5000);
 
-        System.out.println("page source:"+driver.getPageSource());
+        //System.out.println("page source:"+driver.getPageSource());
 
 /*
            ymt app 返回 控件
@@ -170,6 +170,7 @@ public class TestMonkey {
            <XCUIElementTypeButton type="XCUIElementTypeButton" name="back" label="back" enabled="true" visible="true" x="5" y="26" width="39" height="30"/>
            <XCUIElementTypeButton type="XCUIElementTypeButton" name="返回" label="返回" enabled="true" visible="false" x="8" y="31" width="21" height="22"/>
 */
+
 
 
 

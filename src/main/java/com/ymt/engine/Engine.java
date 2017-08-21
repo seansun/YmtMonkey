@@ -3,12 +3,14 @@ package com.ymt.engine;
 import com.ymt.entity.Action;
 import com.ymt.entity.Step;
 import com.ymt.tools.LimitQueue;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +23,9 @@ public class Engine {
 
     private static final Logger logger = LoggerFactory.getLogger(Engine.class);
 
-    public AndroidDriver driver;
+    public LimitQueue<Step> results;
 
     public static String deviceName;
-
-    public LimitQueue<Step> results;
 
     //当前年月日时间
     public static String currentTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
@@ -48,25 +48,31 @@ public class Engine {
     //默认滑动持续时间100ms
     private final int SWIPE_DURING = 100;
 
+    private AppiumDriver driver;
+
     public static int width;
 
     public static int height;
+
 
     public Engine() {
 
     }
 
-    public Engine(AndroidDriver driver, LimitQueue<Step> results) {
+
+    public Engine(AppiumDriver driver,LimitQueue<Step> results) {
 
         //设置存储操作步骤 Queue 长度
         results.setLimit(MAX_SCREENSHOT_COUNT);
 
-        this.driver = driver;
         this.results = results;
+
+        this.driver=driver;
 
         this.width = driver.manage().window().getSize().getWidth();
 
         this.height = driver.manage().window().getSize().getHeight();
+
 
         this.deviceName = driver.getCapabilities().getCapability("deviceName").toString();
 
@@ -202,6 +208,7 @@ public class Engine {
         int width = this.width;
         int height = this.height;
 
+
         driver.swipe(width * (percent - 1) / percent, height / 2, width / percent, height / 2, during);
     }
 
@@ -219,6 +226,7 @@ public class Engine {
     public void swipeToRight(int during, int percent) {
         int width = this.width;
         int height = this.height;
+
         driver.swipe(width / percent, height / 2, width * (percent - 1) / percent, height / 2, during);
     }
 
@@ -289,6 +297,7 @@ public class Engine {
 
 
     public void clickScreen(int x, int y) {
+
 
         String result = "pass";
 

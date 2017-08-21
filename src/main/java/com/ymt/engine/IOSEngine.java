@@ -1,5 +1,8 @@
 package com.ymt.engine;
 
+import com.ymt.entity.Step;
+import com.ymt.tools.LimitQueue;
+import io.appium.java_client.ios.IOSDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +12,18 @@ import org.slf4j.LoggerFactory;
 public class IOSEngine extends Engine {
 
     private static final Logger logger = LoggerFactory.getLogger(IOSEngine.class);
+
+
+    private IOSDriver driver;
+
+
+    public IOSEngine(IOSDriver driver, LimitQueue<Step> results){
+
+        super(driver,results);
+
+        this.driver=driver;
+
+    }
 
 
     /**

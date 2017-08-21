@@ -5,7 +5,6 @@ capability:
   autoWebview: "false"
   autoLaunch: "true"
   noReset: "true"
-  time: 1800
 androidCapability:
   appPackage: "com.ymatou.shop"
   appActivity: ".ui.activity.SplashActivity"
@@ -37,10 +36,10 @@ androidCapability:
       #app: ""
       appium: "http://127.0.0.1:4723/wd/hub"
 iosCapability:
-  deviceName: "iPhone 6 Plus"
+  deviceName: "iPhone (3)"
   logCmd: "idevicesyslog -d -u #udid#|grep xxx"
   bundleId: "com.ymatou.Shopping"
+  udid: "d36d600b4ece53a8bde8daf869790012a46842c3"
   platformVersion: "9.3.1"
   autoAcceptAlerts: "true"
-  #app: ""
   appium: "http://127.0.0.1:4730/wd/hub"

@@ -6,6 +6,7 @@ import com.ymt.entity.DataRecord;
 import com.ymt.entity.Performance;
 import com.ymt.entity.Step;
 import com.ymt.tools.*;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class Monkey {
 
     private static final Logger logger = LoggerFactory.getLogger(Monkey.class);
+
+    public AppiumDriver driver;
+
 
     public DataRecord record = new DataRecord();
 
@@ -34,7 +38,6 @@ public class Monkey {
 
     public static Map<String, Integer> pageCount = new HashMap<String, Integer>();
 
-    public AndroidDriver driver;
 
     public Config config;
 

@@ -7,10 +7,9 @@ public class IOSCapability {
 
     private  String deviceName;
     private  String bundleId;
-    private  String screenshotWaitTimeout;
+    private  String udid;
     private  String platformVersion;
     private  String autoAcceptAlerts;
-    private  String app;
     private  String appium;
     private String logCmd;
 
@@ -38,13 +37,6 @@ public class IOSCapability {
         this.bundleId = bundleId;
     }
 
-    public String getScreenshotWaitTimeout() {
-        return screenshotWaitTimeout;
-    }
-
-    public void setScreenshotWaitTimeout(String screenshotWaitTimeout) {
-        this.screenshotWaitTimeout = screenshotWaitTimeout;
-    }
 
     public String getPlatformVersion() {
         return platformVersion;
@@ -62,13 +54,7 @@ public class IOSCapability {
         this.autoAcceptAlerts = autoAcceptAlerts;
     }
 
-    public String getApp() {
-        return app;
-    }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
 
     public String getAppium() {
         return appium;
@@ -76,5 +62,14 @@ public class IOSCapability {
 
     public void setAppium(String appium) {
         this.appium = appium;
+    }
+
+
+    public String getUdid() {
+        return udid;
+    }
+
+    public void setUdid(String udid) {
+        this.udid = udid;
     }
 }

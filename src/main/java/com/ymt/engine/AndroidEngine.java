@@ -4,7 +4,9 @@ import com.ymt.entity.Action;
 import com.ymt.entity.Step;
 import com.ymt.tools.AdbUtils;
 import com.ymt.tools.LimitQueue;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,17 +22,23 @@ public class AndroidEngine extends Engine{
 
     private static final int  KEYCODE_HOME=3,KEYCODE_MENU=82,KEYCODE_BACK=4;
 
+    private static AndroidDriver driver;
 
     private AdbUtils adbUtils;
 
 
     public AndroidEngine(AndroidDriver driver, LimitQueue<Step> results){
 
-        super(driver, results);
+        super(driver,results);
+
+        this.driver=driver;
+
 
         adbUtils = new AdbUtils(deviceName);
 
     }
+
+
     /**
      * 截图
      */
@@ -42,6 +50,8 @@ public class AndroidEngine extends Engine{
 
 
     }
+
+
 
     /**
      * andriod 按 home 回到桌面操作

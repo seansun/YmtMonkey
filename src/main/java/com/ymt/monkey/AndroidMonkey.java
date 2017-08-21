@@ -6,6 +6,7 @@ import com.ymt.tools.AdbUtils;
 import com.ymt.tools.FileUtil;
 import com.ymt.tools.MathRandom;
 import com.ymt.tools.ThreadPoolManage;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.collections.CollectionUtils;
 import org.openqa.selenium.remote.CapabilityType;
@@ -26,9 +27,13 @@ public class AndroidMonkey extends Monkey {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidMonkey.class);
 
+    private  AndroidDriver driver;
+
     private AdbUtils adbUtils;
 
+    //android 配置信息
     public AndroidCapability androidCapability;
+
     // 种子值
     public long seed = System.currentTimeMillis();
 
@@ -42,7 +47,6 @@ public class AndroidMonkey extends Monkey {
     public AndroidMonkey() {
 
         this.androidCapability = config.getAndroidCapability();
-
 
     }
 
@@ -121,7 +125,10 @@ public class AndroidMonkey extends Monkey {
             driver = new AndroidDriver(new URL(url),
                     capabilities);
 
+            super.driver=(AppiumDriver) driver;
+
             driver.launchApp();
+
             engine = new AndroidEngine(driver, results);
 
             adbUtils = new AdbUtils(deviceName);
