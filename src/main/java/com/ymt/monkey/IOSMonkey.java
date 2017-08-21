@@ -15,22 +15,15 @@ import java.net.URL;
  * Created by sunsheng on 2017/6/27.
  */
 public class IOSMonkey extends Monkey {
-
     private static final Logger logger = LoggerFactory.getLogger(IOSMonkey.class);
-
-
     //ios 配置信息
     public IOSCapability iosCapability;
-
-
 
     public IOSMonkey() {
 
         this.iosCapability = config.getIosCapability();
 
-
     }
-
 
     @Override
     public void setupDriver() {
@@ -65,13 +58,14 @@ public class IOSMonkey extends Monkey {
 
             engine = new IOSEngine(driver,results);
 
+           // new IOSEngine(driver,results);
+
 
         } catch (MalformedURLException e) {
 
             //engine = new Engine(null, results);
 
             logger.error("加载 IOSDriver 失败,{}", e);
-
         }
 
         record.setAppInfo(String.format("PackageName %s,Version %s", iosCapability.getBundleId(), "3.9.1"));

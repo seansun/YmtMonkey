@@ -38,7 +38,6 @@ public class Monkey {
 
     public static Map<String, Integer> pageCount = new HashMap<String, Integer>();
 
-
     public Config config;
 
     //monkey 测试最大运行时间,单位分钟  1800分钟
@@ -117,9 +116,7 @@ public class Monkey {
     public boolean start() {
         return true;
 
-
     }
-
 
     /**
      * 统计页面 page 访问次数
@@ -128,7 +125,6 @@ public class Monkey {
         return null;
 
     }
-
 
     public Runnable handleCpuAndMem() {
         return null;
