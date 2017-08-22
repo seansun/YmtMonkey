@@ -1,16 +1,11 @@
 package com.ymt.monkey;
 
 import io.appium.java_client.ios.IOSDriver;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.*;
 import java.net.URL;
-import java.util.*;
 
 /**
  * Created by sunsheng on 2017/5/26.

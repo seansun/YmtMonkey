@@ -28,11 +28,11 @@ public class AppiumServer extends Thread {
     @Override
     public void run() {
 
-        killAppiumServer();
+        //killAppiumServer();
 
         logger.info("start appium");
 
-        //System.out.println("start appium");
+        System.out.println("start appium");
 
         cmdInvoke(cmd);
 
@@ -81,7 +81,8 @@ public class AppiumServer extends Thread {
            cmdInvoke("taskkill /f /t /im node.exe");
        }
        else
-           cmdInvoke("ps -A|grep node|grep -v grep|awk 'NR=1 {print $1}'|xargs kill -9");
+           // 杀掉appium 进程，排查grep ,YmtMonkey 进程，
+           cmdInvoke("ps -A|grep appium |grep -v grep|grep -v YmtMonkey|awk 'NR=1 {print $1}'|xargs kill -9");
 
     }
 

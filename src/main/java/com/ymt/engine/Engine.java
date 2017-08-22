@@ -1,6 +1,7 @@
 package com.ymt.engine;
 
 import com.ymt.entity.Action;
+import com.ymt.entity.Constant;
 import com.ymt.entity.Step;
 import com.ymt.tools.LimitQueue;
 import io.appium.java_client.AppiumDriver;
@@ -82,9 +83,11 @@ public class Engine {
 
         logger.info("当前任务taskId 为:{}", getTaskId());
 
+
         //截图地址加上当前时间，当前的执行taskid
-        SCREENSHOT_PATH = System.getProperty("user.dir")
-                + File.separator + String.format("results\\%s\\screenshots\\%s\\", currentTime, getTaskId());
+        SCREENSHOT_PATH =
+                 String.format("%s#%s#screenshots#%s#", Constant.getResultPath().getPath(),currentTime, getTaskId()).replace("#",File.separator);
+
 
         try {
             FileUtils.forceMkdir(new File(SCREENSHOT_PATH));
@@ -341,7 +344,7 @@ public class Engine {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        System.out.println();
+        System.out.println(SCREENSHOT_PATH);
 
     }
 

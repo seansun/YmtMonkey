@@ -158,6 +158,7 @@ public class Monkey {
             int width = engine.getScreenWidth();
             int height = engine.getScreenHeight();
 
+
             MathRandom mathRandom = new MathRandom();
 
             while (true) {
