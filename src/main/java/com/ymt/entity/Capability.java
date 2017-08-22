@@ -12,7 +12,7 @@ public class Capability {
     private String autoWebview;
     private String autoLaunch;
     private String noReset;
-    private int time;
+    private int runTime;
 
 
 
@@ -72,11 +72,11 @@ public class Capability {
         this.noReset = noReset;
     }
 
-    public int getTime() {
-        return time;
+    public int getRunTime() {
+        return runTime;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
     }
 }

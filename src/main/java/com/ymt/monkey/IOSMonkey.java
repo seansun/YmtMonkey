@@ -2,6 +2,7 @@ package com.ymt.monkey;
 
 import com.ymt.engine.IOSEngine;
 import com.ymt.entity.IOSCapability;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -15,9 +16,12 @@ import java.net.URL;
  * Created by sunsheng on 2017/6/27.
  */
 public class IOSMonkey extends Monkey {
+
     private static final Logger logger = LoggerFactory.getLogger(IOSMonkey.class);
     //ios 配置信息
     public IOSCapability iosCapability;
+
+    private IOSDriver driver;
 
     public IOSMonkey() {
 
@@ -29,8 +33,6 @@ public class IOSMonkey extends Monkey {
     public void setupDriver() {
 
         super.setupDriver();
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
 
@@ -46,19 +48,14 @@ public class IOSMonkey extends Monkey {
 
         capabilities.setCapability("automationName", "XCUITest");
 
-        capabilities.setCapability("unicodeKeyboard", "True");
-
-        capabilities.setCapability("resetKeyboard", "True");
-
-
         try {
 
-            driver = new IOSDriver(new URL(iosCapability.getAppium()),
+            this.driver = new IOSDriver(new URL(iosCapability.getAppium()),
                     capabilities);
 
-            engine = new IOSEngine(driver,results);
+            super.driver=(AppiumDriver)driver;
 
-           // new IOSEngine(driver,results);
+            engine = new IOSEngine(driver,results);
 
 
         } catch (MalformedURLException e) {

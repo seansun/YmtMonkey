@@ -21,8 +21,7 @@ public class AppiumServer extends Thread {
         this.cmd = cmd;
 
         //主线程执行完后,该线程停止
-        //this.setDaemon(true);
-
+        this.setDaemon(true);
 
     }
 
@@ -33,7 +32,7 @@ public class AppiumServer extends Thread {
 
         logger.info("start appium");
 
-        System.out.println("start appium");
+        //System.out.println("start appium");
 
         cmdInvoke(cmd);
 
@@ -51,9 +50,10 @@ public class AppiumServer extends Thread {
             String line;
 
             while ((line = br.readLine()) != null) {
+
                 logger.info(line);
 
-                System.out.println("line:"+line);
+                //System.out.println("line:"+line);
 
             }
         } catch (Exception e) {
@@ -80,11 +80,8 @@ public class AppiumServer extends Thread {
            cmdInvoke("taskkill /f /t /im appium");
            cmdInvoke("taskkill /f /t /im node.exe");
        }
-
        else
-
            cmdInvoke("ps -A|grep node|grep -v grep|awk 'NR=1 {print $1}'|xargs kill -9");
-
 
     }
 

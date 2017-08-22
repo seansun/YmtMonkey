@@ -17,18 +17,16 @@ import java.util.*;
  */
 public class TestMonkey {
 
-
     @Test
     public void testMonkey() {
 
         Monkey monkey = new AndroidMonkey();
 
-        boolean result = monkey.start();
-
+        boolean result = monkey.run();
 
         while (result) {
 
-            result = monkey.start();
+            result = monkey.run();
 
         }
 
@@ -37,29 +35,10 @@ public class TestMonkey {
     @Test
     public void test() {
 
-        Map<String, String> tmp = new LinkedHashMap<String, String>();
-
-        tmp.put("b", "bbb");
-        tmp.put("a", "aaa");
-        tmp.put("c", "ccc");
-        tmp.put("d", "cdc");
-        if (tmp.containsKey("b")) {
-
-            tmp.remove("b");
-        }
-        tmp.put("b", "eeeee");
-
-
-        Iterator<String> iterator_2 = tmp.keySet().iterator();
-        while (iterator_2.hasNext()) {
-            Object key = iterator_2.next();
-            System.out.println("tmp.get(key) is :" + tmp.get(key));
-        }
     }
 
     @Test
     public void testJsoup() {
-
 
 
     }
@@ -69,14 +48,14 @@ public class TestMonkey {
 
         Monkey monkey = new IOSMonkey();
 
-        boolean result = monkey.start();
+        boolean result = monkey.run();
 
 /*        while (result) {
 
             result = monkey.start();
 
         }*/
-        
+
     }
 
     @Test

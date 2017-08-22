@@ -1,10 +1,8 @@
 capability:
+  #命令超时时间 单位秒
   newCommandTimeout: 120
-  launchTimeout: 120000
-  platformName: ""
-  autoWebview: "false"
-  autoLaunch: "true"
-  noReset: "true"
+  #最大运行时间 单位分钟
+  runTime: 1800
 androidCapability:
   appPackage: "com.ymatou.shop"
   appActivity: ".ui.activity.SplashActivity"

@@ -51,7 +51,7 @@ public class Report {
 
             for (int i = 0; i < record.getResults().size(); i++) {
 
-                String fileName = String.format("screenShot%s.png", i + 1);
+                String fileName = String.format("monkey_screenShot%s.png", i + 1);
                 //将图片导入到本地
                 adbUtils.pullScreen(fileName, String.format("%s%s", screenshotPath, fileName));
 
@@ -253,6 +253,7 @@ public class Report {
 
         //生成ps处理后图片
         try {
+
             ImageIO.write(img, "png", new File(psImageFileName));
 
             logger.info("ps截图截图:{}", psImageFileName);

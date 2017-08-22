@@ -33,7 +33,6 @@ public class AndroidEngine extends Engine{
 
         this.driver=driver;
 
-
         adbUtils = new AdbUtils(deviceName);
 
     }
@@ -47,10 +46,7 @@ public class AndroidEngine extends Engine{
         logger.info("截图开始");
         adbUtils.screencap(fileName);
         logger.info("截图结束");
-
-
     }
-
 
 
     /**

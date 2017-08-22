@@ -26,22 +26,18 @@ public class AppMonkey {
                 System.err.println("参数类型错误,请指定系统: android/ios!");
             }
 
-            boolean result = monkey.start();
+            boolean result = monkey.run();
 
             while (result) {
 
-                result = monkey.start();
-
+                result = monkey.run();
             }
-
 
         } catch (Exception e) {
 
             e.printStackTrace();
 
         }
-
-
     }
 
 }

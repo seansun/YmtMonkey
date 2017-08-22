@@ -27,18 +27,12 @@ public class AndroidMonkey extends Monkey {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidMonkey.class);
 
-    private  AndroidDriver driver;
+    private AndroidDriver driver;
 
     private AdbUtils adbUtils;
 
     //android 配置信息
     public AndroidCapability androidCapability;
-
-    // 种子值
-    public long seed = System.currentTimeMillis();
-
-    // 随机数生成器
-    public Random random = new Random(seed);
 
     String deviceName = null;
 
@@ -62,20 +56,11 @@ public class AndroidMonkey extends Monkey {
 
         appPackage = androidCapability.getAppPackage();
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
-
         capabilities.setCapability("platformName", "Android");
 
         //capabilities.setCapability("automationName", "Selendroid");
-        //
+
         capabilities.setCapability("automationName", "Appium");
-
-        //capabilities.setCapability("unicodeKeyboard", "true");
-
-        //设置收到下一条命令的超时时间,超时appium会自动关闭session 30s
-        capabilities.setCapability("newCommandTimeout", "30");
 
         String platformVersion = null;
         String url = null;
@@ -108,26 +93,16 @@ public class AndroidMonkey extends Monkey {
         capabilities.setCapability("deviceName", deviceName);
         capabilities.setCapability("platformVersion", platformVersion);
 
-        //不需要再次安装
-        capabilities.setCapability("noReset", true);
-        // 自动接受提示信息
-        capabilities.setCapability("autoAcceptAlerts", true);
-
-        //capabilities.setCapability("app", app.getAbsolutePath());
-
         capabilities.setCapability("appPackage", appPackage);
         capabilities
                 .setCapability("appActivity", appActivity);
 
-
         try {
 
-            driver = new AndroidDriver(new URL(url),
+            this.driver =  new AndroidDriver(new URL(url),
                     capabilities);
 
-            super.driver=(AppiumDriver) driver;
-
-            driver.launchApp();
+            super.driver=(AppiumDriver)driver;
 
             engine = new AndroidEngine(driver, results);
 
@@ -223,134 +198,20 @@ public class AndroidMonkey extends Monkey {
     }
 
     /**
-     * 开始随机遍历
+     * 监控app 运行
      */
     @Override
-    public boolean start() {
+    public void handleApp(){
 
-        boolean isNeedRetry = true;
+        //主页面 activity name
+        String mainActivity = driver.currentActivity();
 
-        setupDriver();
-
-        beforeTravel();
+        logger.info("主界面 mainActivity:{}", mainActivity);
 
         //后台开一线程监控当前运行的android app 包名
-        ThreadPoolManage.joinScheduledThreadPool(HandleApp.launchAPP(androidCapability.getAppPackage(), deviceName, driver), 10, 10);
-
-        logger.info("开始随机Monkey测试");
-        try {
-            //主页面 activity name
-            String mainActivity = driver.currentActivity();
-
-            int width = engine.getScreenWidth();
-            int height = engine.getScreenHeight();
-
-            logger.info("主界面 mainActivity:{}", mainActivity);
-
-            MathRandom mathRandom = new MathRandom();
-
-            while (true) {
-
-                switch (mathRandom.percentageRandom()) {
-
-                    case MathRandom.EVENT_TYPE_SWIPE_LEFT: {
-
-                        engine.swip(Action.SWIP_LEFT, 100);
-
-                        break;
-
-                    }
-                    case MathRandom.EVENT_TYPE_SWIPE_RIGHT: {
-
-                        engine.swip(Action.SWIP_RIGHT, 100);
-
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_SWIPE_UP: {
-                        engine.swip(Action.SWIP_UP, 100);
-
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_SWIPE_DOWN: {
-
-                        engine.swip(Action.SWIP_DOWN, 100);
-
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_BACK: {
-                        engine.back();
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_HOMEKEY: {
-
-                        engine.homePress();
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_TAP: {
-
-                        int x = random.nextInt(width);
-                        int y = random.nextInt(height);
-
-                        engine.clickScreen(x, y);
-
-                        break;
-                    }
-
-                }
-
-                eventcount++;
-
-                logger.info("---EVENT执行了：{} 次---", eventcount);
-
-
-                long endTime = System.currentTimeMillis();
-
-
-                if (ThreadPoolManage.stop) {
-
-
-                    logger.info("************发生crash，当前任务即将结束*************");
-
-
-                    ThreadPoolManage.stopScheduledThreadPool();
-
-
-                    isNeedRetry = true;
-
-                    break;
-
-                }
-
-                if ((endTime - startTime) > (TIMING * 60 * 1000)) {
-
-                    logger.info("已运行{}分钟，任务即将结束", (endTime - startTime) / 60 / 1000);
-
-                    ThreadPoolManage.stopScheduledThreadPool();
-
-                    break;
-                }
-
-
-                //if (eventcount>10) ThreadPoolManage.stop=true;
-
-
-            }
-
-        } catch (Exception e) {
-
-            logger.error("Monkey 测试出现异常:{}", e);
-
-
-        } finally {
-
-            afterTravel();
-
-        }
-
-        return isNeedRetry;
+        ThreadPoolManage.joinScheduledThreadPool(HandleApp.launchAndroidAPP(androidCapability.getAppPackage(), deviceName, driver), 10, 10);
 
     }
-
 
     /***
      * android 提取appium,adb 日志

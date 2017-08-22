@@ -16,12 +16,11 @@ public class IOSEngine extends Engine {
 
     private IOSDriver driver;
 
-
-    public IOSEngine(AppiumDriver driver, LimitQueue<Step> results){
+    public IOSEngine(IOSDriver driver, LimitQueue<Step> results){
 
         super(driver,results);
 
-        this.driver=(IOSDriver)driver;
+        this.driver=driver;
 
     }
 
