@@ -84,7 +84,7 @@ public class Engine {
         logger.info("当前任务taskId 为:{}", getTaskId());
 
 
-        //截图地址加上当前时间，当前的执行taskid
+        //截图加上当前时间，当前的执行taskid
         SCREENSHOT_PATH =
                  String.format("%s#%s#screenshots#%s#", Constant.getResultPath().getPath(),currentTime, getTaskId()).replace("#",File.separator);
 
@@ -298,7 +298,11 @@ public class Engine {
         results.offer(step);
     }
 
-
+    /**
+     * 点击屏幕坐标点
+     * @param x
+     * @param y
+     */
     public void clickScreen(int x, int y) {
 
 
@@ -328,7 +332,7 @@ public class Engine {
 
 
     /**
-     * 尝试后退
+     * home 键
      */
     public void homePress() {
 

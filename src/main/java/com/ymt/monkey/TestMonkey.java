@@ -1,11 +1,15 @@
 package com.ymt.monkey;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sunsheng on 2017/5/26.
@@ -19,11 +23,11 @@ public class TestMonkey {
 
         boolean result = monkey.run();
 
-        while (result) {
+/*        while (result) {
 
             result = monkey.run();
 
-        }
+        }*/
 
     }
 
@@ -59,9 +63,9 @@ public class TestMonkey {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
+        capabilities.setCapability(CapabilityType.BROWSER_NAME, "ios");
 
-        capabilities.setCapability("platformName", "iOS");
+        capabilities.setCapability("platformName", "ios");
         capabilities.setCapability("deviceName", "iPhone (3)");
         capabilities.setCapability("platformVersion", "9.3.1");
 
@@ -77,7 +81,32 @@ public class TestMonkey {
                 capabilities);
 
 
-        Thread.sleep(5000);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+
+        for(int i=0;i<10;i++){
+
+            clickScreen(100,100,driver);
+
+            try{
+
+                System.out.println("pagesource:"+driver.getPageSource());
+
+                WebElement backButton= driver.findElement(By.xpath("//*[@name='back']"));
+
+                backButton.click();
+
+            }
+            catch (Exception e ){
+
+                e.printStackTrace();
+                System.out.println("time out NoSuchElementException");
+            }
+
+            Thread.sleep(3000);
+        }
+
+
 
         //System.out.println("page source:"+driver.getPageSource());
 
@@ -89,10 +118,22 @@ public class TestMonkey {
 */
 
 
+    }
 
 
+    /**
+     * 点击屏幕坐标点
+     * @param x
+     * @param y
+     */
+    public static void clickScreen(int x, int y,IOSDriver driver) {
+
+        TouchAction action = new TouchAction(driver);
+
+        action.tap(x, y).perform();
 
     }
+
 
 
 }

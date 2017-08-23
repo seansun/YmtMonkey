@@ -35,9 +35,9 @@ androidCapability:
       appium: "http://127.0.0.1:4723/wd/hub"
 iosCapability:
   deviceName: "iPhone (3)"
-  logCmd: "idevicesyslog -d -u #udid#|grep xxx"
+  logCmd: "idevicesyslog -d -u d36d600b4ece53a8bde8daf869790012a46842c3 |grep 'iPhone Buyer'"
   bundleId: "com.ymatou.Shopping"
   udid: "d36d600b4ece53a8bde8daf869790012a46842c3"
   platformVersion: "9.3.1"
   autoAcceptAlerts: "true"
-  appium: "http://127.0.0.1:4730/wd/hub"
+  appium: "http://127.0.0.1:4723/wd/hub"

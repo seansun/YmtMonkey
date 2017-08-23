@@ -28,7 +28,7 @@ public class AppiumServer extends Thread {
     @Override
     public void run() {
 
-        //killAppiumServer();
+        killAppiumServer();
 
         logger.info("start appium");
 

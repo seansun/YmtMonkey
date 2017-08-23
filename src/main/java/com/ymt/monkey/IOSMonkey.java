@@ -48,6 +48,7 @@ public class IOSMonkey extends Monkey {
 
         capabilities.setCapability("automationName", "XCUITest");
 
+
         try {
 
             this.driver = new IOSDriver(new URL(iosCapability.getAppium()),
