@@ -66,7 +66,7 @@ public class TestMonkey {
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "ios");
 
         capabilities.setCapability("platformName", "ios");
-        capabilities.setCapability("deviceName", "iPhone (3)");
+        capabilities.setCapability("deviceName", "iPhone SE");
         capabilities.setCapability("platformVersion", "9.3.1");
 
         capabilities.setCapability("bundleId", "com.ymatou.Shopping");
@@ -77,27 +77,26 @@ public class TestMonkey {
         capabilities.setCapability("unicodeKeyboard", "True");
         capabilities.setCapability("resetKeyboard", "True");
 
-        IOSDriver driver = new IOSDriver (new URL("http://127.0.0.1:4723/wd/hub"),
+        IOSDriver driver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"),
                 capabilities);
 
 
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
 
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
 
-            clickScreen(100,100,driver);
+            clickScreen(100, 100, driver);
 
-            try{
+            try {
 
-                System.out.println("pagesource:"+driver.getPageSource());
+                System.out.println("pagesource:" + driver.getPageSource());
 
-                WebElement backButton= driver.findElement(By.xpath("//*[@name='back']"));
+                WebElement backButton = driver.findElement(By.xpath("//*[@name='back']"));
 
                 backButton.click();
 
-            }
-            catch (Exception e ){
+            } catch (Exception e) {
 
                 e.printStackTrace();
                 System.out.println("time out NoSuchElementException");
@@ -107,14 +106,15 @@ public class TestMonkey {
         }
 
 
-
         //System.out.println("page source:"+driver.getPageSource());
 
 /*
            ymt app 返回 控件
 
-           <XCUIElementTypeButton type="XCUIElementTypeButton" name="back" label="back" enabled="true" visible="true" x="5" y="26" width="39" height="30"/>
-           <XCUIElementTypeButton type="XCUIElementTypeButton" name="返回" label="返回" enabled="true" visible="false" x="8" y="31" width="21" height="22"/>
+           <XCUIElementTypeButton type="XCUIElementTypeButton" name="back" label="back" enabled="true" visible="true"
+            x="5" y="26" width="39" height="30"/>
+           <XCUIElementTypeButton type="XCUIElementTypeButton" name="返回" label="返回" enabled="true" visible="false"
+           x="8" y="31" width="21" height="22"/>
 */
 
 
@@ -123,17 +123,17 @@ public class TestMonkey {
 
     /**
      * 点击屏幕坐标点
+     *
      * @param x
      * @param y
      */
-    public static void clickScreen(int x, int y,IOSDriver driver) {
+    public static void clickScreen(int x, int y, IOSDriver driver) {
 
         TouchAction action = new TouchAction(driver);
 
         action.tap(x, y).perform();
 
     }
-
 
 
 }

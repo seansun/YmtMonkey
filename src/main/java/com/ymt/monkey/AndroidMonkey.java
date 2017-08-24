@@ -68,7 +68,7 @@ public class AndroidMonkey extends Monkey {
         //获取连接电脑活动的 Devices list
         List<String> activityDevices = new AdbUtils().getDevices();
 
-        if (CollectionUtils.isEmpty(activityDevices)){
+        if (CollectionUtils.isEmpty(activityDevices)) {
 
             logger.info("当前活动的 Devices为 0");
 
@@ -99,10 +99,10 @@ public class AndroidMonkey extends Monkey {
 
         try {
 
-            this.driver =  new AndroidDriver(new URL(url),
+            this.driver = new AndroidDriver(new URL(url),
                     capabilities);
 
-            super.driver=(AppiumDriver)driver;
+            super.driver = (AppiumDriver) driver;
 
             engine = new AndroidEngine(driver, results);
 
@@ -129,7 +129,8 @@ public class AndroidMonkey extends Monkey {
 
         record.setAppInfo(String.format("PackageName %s,Version %s", appPackage, adbUtils.getAppVersion(appPackage)));
 
-        record.setDeviceName(String.format("DeviceName %s,SystemVersion %s,Resolution %s", adbUtils.getDeviceName(), adbUtils.getAndroidVersion(), adbUtils.getScreenResolution()));
+        record.setDeviceName(String.format("DeviceName %s,SystemVersion %s,Resolution %s", adbUtils.getDeviceName(),
+                adbUtils.getAndroidVersion(), adbUtils.getScreenResolution()));
 
     }
 
@@ -201,7 +202,7 @@ public class AndroidMonkey extends Monkey {
      * 监控app 运行
      */
     @Override
-    public void handleApp(){
+    public void handleApp() {
 
         //主页面 activity name
         String mainActivity = driver.currentActivity();
@@ -209,7 +210,8 @@ public class AndroidMonkey extends Monkey {
         logger.info("主界面 mainActivity:{}", mainActivity);
 
         //后台开一线程监控当前运行的android app 包名
-        ThreadPoolManage.joinScheduledThreadPool(HandleApp.launchAndroidAPP(androidCapability.getAppPackage(), deviceName, driver), 10, 10);
+        ThreadPoolManage.joinScheduledThreadPool(HandleApp.launchAndroidAPP(androidCapability.getAppPackage(),
+                deviceName, driver), 10, 10);
 
     }
 

@@ -17,11 +17,11 @@ public class IOSEngine extends Engine {
 
     private IOSDriver driver;
 
-    public IOSEngine(IOSDriver driver, LimitQueue<Step> results){
+    public IOSEngine(IOSDriver driver, LimitQueue<Step> results) {
 
-        super(driver,results);
+        super(driver, results);
 
-        this.driver=driver;
+        this.driver = driver;
 
     }
 
@@ -31,7 +31,7 @@ public class IOSEngine extends Engine {
     @Override
     public void screenShot(String fileName) {
 
-       // TODO: 2017/6/27   ios 截图实现
+        // TODO: 2017/6/27   ios 截图实现
 
     }
 

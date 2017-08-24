@@ -96,7 +96,8 @@ public class AdbUtils extends Thread {
     @Override
     public void run() {
 
-        String cmd = String.format("adb -s %s logcat -b main -b system -b events -b radio *:I|%s com.ymatou.shop", this.deviceName, findUtil);
+        String cmd = String.format("adb -s %s logcat -b main -b system -b events -b radio *:I|%s com.ymatou.shop",
+                this.deviceName, findUtil);
 
         cleanLogcat();
 
@@ -298,44 +299,6 @@ public class AdbUtils extends Thread {
         runAdbShell(String.format("%s am start -n %s", this.deviceName, component));
 
     }
-
- /*   *//**
-     * 根据app 包名 获取cpu百分比
-     *
-     * @param packageName
-     *//*
-    public int getCpu(String packageName) {
-
-        String firstLine = getMemAndCpu(packageName);
-
-        if (firstLine.endsWith(packageName)) {
-
-
-        }
-
-        return 0;
-    }
-
-
-    *//**
-     * 根据app 包名 获取内存 单位 Kb
-     *
-     * @param packageName
-     *//*
-    public int getMem(String packageName) {
-
-        String firstLine = getMemAndCpu(packageName);
-
-        if (firstLine.endsWith(packageName)) {
-
-            String st = firstLine.replace(" ", "#");
-
-            return Integer.valueOf(st.split("K#")[1].trim());
-        }
-
-        return 0;
-    }*/
-
 
     /**
      * 根据app 包名 获取内存,cpu 信息

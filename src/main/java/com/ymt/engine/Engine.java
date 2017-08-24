@@ -61,14 +61,14 @@ public class Engine {
     }
 
 
-    public Engine(AppiumDriver driver,LimitQueue<Step> results) {
+    public Engine(AppiumDriver driver, LimitQueue<Step> results) {
 
         //设置存储操作步骤 Queue 长度
         results.setLimit(MAX_SCREENSHOT_COUNT);
 
         this.results = results;
 
-        this.driver=driver;
+        this.driver = driver;
 
         this.width = driver.manage().window().getSize().getWidth();
 
@@ -86,7 +86,8 @@ public class Engine {
 
         //截图加上当前时间，当前的执行taskid
         SCREENSHOT_PATH =
-                 String.format("%s#%s#screenshots#%s#", Constant.getResultPath().getPath(),currentTime, getTaskId()).replace("#",File.separator);
+                String.format("%s#%s#screenshots#%s#", Constant.getResultPath().getPath(), currentTime, getTaskId())
+                        .replace("#", File.separator);
 
 
         try {
@@ -300,6 +301,7 @@ public class Engine {
 
     /**
      * 点击屏幕坐标点
+     *
      * @param x
      * @param y
      */

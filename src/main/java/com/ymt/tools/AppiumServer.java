@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 
 /**
  * Created by sunsheng on 2017/5/4.
- *
+ * <p>
  * 启动appium server
  */
 public class AppiumServer extends Thread {
@@ -70,24 +70,23 @@ public class AppiumServer extends Thread {
     }
 
     /**
-     *  清理appium  ，node 进程
+     * 清理appium  ，node 进程
      */
 
-    private void killAppiumServer(){
+    private void killAppiumServer() {
 
-       if (CmdUtil.isWindows()){
+        if (CmdUtil.isWindows()) {
 
-           cmdInvoke("taskkill /f /t /im appium");
-           cmdInvoke("taskkill /f /t /im node.exe");
-       }
-       else
-           // 杀掉appium 进程，排查grep ,YmtMonkey 进程，
-           cmdInvoke("ps -A|grep appium |grep -v grep|grep -v YmtMonkey|awk 'NR=1 {print $1}'|xargs kill -9");
+            cmdInvoke("taskkill /f /t /im appium");
+            cmdInvoke("taskkill /f /t /im node.exe");
+        } else
+            // 杀掉appium 进程，排除 grep ,YmtMonkey 进程，
+            cmdInvoke("ps -A|grep appium |grep -v grep|grep -v YmtMonkey|awk 'NR=1 {print $1}'|xargs kill -9");
 
     }
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
 
         new AppiumServer("appium").start();

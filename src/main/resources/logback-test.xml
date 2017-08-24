@@ -113,6 +113,36 @@
     </appender>
 
 
+    <!-- 按照每天生成日志文件 -->
+    <appender name="ideviceLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。-->
+        <append>false</append>
+        <file>${LOG_HOME}/idevice.log</file>
+        <Encoding>UTF-8</Encoding>    <!--日志文件输出的文件名-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+        <FileNamePattern>${LOG_HOME}/app.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+        <MaxHistory>3</MaxHistory>
+    </rollingPolicy>-->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+            </pattern>
+        </layout>
+
+        <!-- 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/idevice.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>1</maxIndex>
+        </rollingPolicy>
+        <!--日志文件最大的大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>1MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+
     <logger name="appium" level="${level}" additivity="false">
 
         <!--<appender-ref ref="STDOUT" />-->
@@ -126,6 +156,14 @@
         <!--<appender-ref ref="STDOUT" />-->
 
         <appender-ref ref="adbLog"/>
+
+    </logger>
+
+    <logger name="ideviceLog" level="${level}" additivity="false">
+
+        <!--<appender-ref ref="STDOUT" />-->
+
+        <appender-ref ref="ideviceLog"/>
 
     </logger>
 

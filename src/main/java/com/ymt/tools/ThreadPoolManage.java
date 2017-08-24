@@ -17,19 +17,28 @@ public class ThreadPoolManage {
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadPoolManage.class);
 
-    private static ScheduledExecutorService SERVICE=Executors.newScheduledThreadPool(3);
+    private static ScheduledExecutorService SERVICE=Executors.newScheduledThreadPool(6);
 
     private static List<Future> futureList=new ArrayList<Future>();
 
     public static boolean stop = false;
 
+
     public static void joinScheduledThreadPool(Runnable runnable, long initialDelay,
                                                long period) {
+
         // 首次执行的延时时间，定时执行的间隔时间
         futureList.add(SERVICE.scheduleAtFixedRate(runnable,
                 initialDelay,
                 period,
                 TimeUnit.SECONDS));
+
+
+    }
+
+    public static void joinScheduledThreadPool(Runnable runnable){
+
+        futureList.add(SERVICE.submit(runnable));
 
     }
 
@@ -45,8 +54,6 @@ public class ThreadPoolManage {
 
     public static void main(String[] args) {
 
-
-        // ScheduledExecutorService service = getCpuAndMemTest();
 
         try {
             Thread.sleep(3000);

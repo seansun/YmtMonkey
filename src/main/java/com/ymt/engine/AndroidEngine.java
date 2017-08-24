@@ -16,22 +16,22 @@ import java.util.Map;
 /**
  * Created by sunsheng on 2017/6/27.
  */
-public class AndroidEngine extends Engine{
+public class AndroidEngine extends Engine {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidEngine.class);
 
-    private static final int  KEYCODE_HOME=3,KEYCODE_MENU=82,KEYCODE_BACK=4;
+    private static final int KEYCODE_HOME = 3, KEYCODE_MENU = 82, KEYCODE_BACK = 4;
 
     private static AndroidDriver driver;
 
     private AdbUtils adbUtils;
 
 
-    public AndroidEngine(AndroidDriver driver, LimitQueue<Step> results){
+    public AndroidEngine(AndroidDriver driver, LimitQueue<Step> results) {
 
-        super(driver,results);
+        super(driver, results);
 
-        this.driver=driver;
+        this.driver = driver;
 
         adbUtils = new AdbUtils(deviceName);
 

@@ -54,7 +54,7 @@ public class Monkey {
 
         loadConfig();
 
-        capabilities= new DesiredCapabilities();
+        capabilities = new DesiredCapabilities();
 
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
 
@@ -121,7 +121,7 @@ public class Monkey {
             cleanEnv();
 
             //重置计数器
-            eventcount=0;
+            eventcount = 0;
         }
     }
 
@@ -132,7 +132,7 @@ public class Monkey {
     }
 
 
-    public void handleApp(){
+    public void handleApp() {
 
 
     }
