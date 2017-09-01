@@ -26,8 +26,6 @@ public class Engine {
 
     public LimitQueue<Step> results;
 
-    public static String deviceName;
-
     //当前年月日时间
     public static String currentTime = new SimpleDateFormat("yyyyMMdd").format(new Date());
 
@@ -55,6 +53,8 @@ public class Engine {
 
     public static int height;
 
+    public static String deviceName;
+
 
     public Engine() {
 
@@ -76,6 +76,7 @@ public class Engine {
 
 
         this.deviceName = driver.getCapabilities().getCapability("deviceName").toString();
+
 
         logger.info("当前设备号 deviceName:{}", deviceName);
 

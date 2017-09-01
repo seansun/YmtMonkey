@@ -1,19 +1,25 @@
 package com.ymt.monkey;
 
 import com.ymt.engine.IOSEngine;
+import com.ymt.entity.Constant;
 import com.ymt.entity.IOSCapability;
+import com.ymt.tools.FileUtil;
 import com.ymt.tools.IdeviceUtils;
 import com.ymt.tools.ThreadPoolManage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
+import org.apache.commons.collections.CollectionUtils;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,12 +41,15 @@ public class IOSMonkey extends Monkey {
 
         this.iosCapability = config.getIosCapability();
 
+        Constant.isAndroid=false;
+
     }
 
     @Override
     public void setupDriver() {
 
         super.setupDriver();
+
 
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
 
@@ -56,7 +65,25 @@ public class IOSMonkey extends Monkey {
 
         capabilities.setCapability("automationName", "XCUITest");
 
-        ideviceUtils = new IdeviceUtils(iosCapability.getUdid());
+        capabilities.setCapability("clearSystemFiles", true);
+
+
+        capabilities.setCapability("wdaConnectionTimeout", 600000);
+
+
+        ideviceUtils = new IdeviceUtils(iosCapability.getDeviceName(),iosCapability.getUdid());
+
+
+        List<String> activityDevices=ideviceUtils.getDevices();
+
+
+        if (! activityDevices.contains(iosCapability.getUdid())){
+
+            logger.info("当前活动的 IOS Devices为 0");
+
+            System.exit(1);
+        }
+
 
         try {
 
@@ -82,10 +109,27 @@ public class IOSMonkey extends Monkey {
             logger.error("加载 IOSDriver 失败,{}", e);
         }
 
-        record.setAppInfo(String.format("PackageName %s,Version %s", iosCapability.getBundleId(), "3.9.1"));
 
-        //record.setDeviceName(String.format("DeviceName %s,SystemVersion %s,Resolution %s", adbUtils.getDeviceName()
-        // , adbUtils.getAndroidVersion(), adbUtils.getScreenResolution()));
+        //获取app 版本号
+        Runnable r=new Runnable() {
+
+            @Override
+            public void run() {
+
+                String appVersion=ideviceUtils.getAppVersion();
+
+                record.setAppInfo(String.format("PackageName %s,Version %s", iosCapability.getBundleId()
+                        , appVersion));
+
+            }
+        };
+
+        //获取app 版本号
+        ThreadPoolManage.joinScheduledThreadPool(r);
+
+
+        record.setDeviceName(String.format("DeviceName %s,SystemVersion %s", driver.getCapabilities().getCapability("deviceName\n")
+                , driver.getCapabilities().getCapability("platformVersion") ));
 
     }
 
@@ -140,11 +184,71 @@ public class IOSMonkey extends Monkey {
     }
 
 
+    /***
+     * ios 提取appium,idevice 日志
+     */
     @Override
     public void getLog() {
 
+        String logPath = Constant.getResultPath().getPath() + File.separator + "logs/";
+
+        String appiumLogPath = logPath + "appium.log";
+
+        String ideviceLogPath = logPath + "idevice.log";
+
+        int lastLineNum = 20;
+        //处理appium log 日志
+        List<String> appiumLog = FileUtil.readLastNLine(new File(appiumLogPath), lastLineNum);
+
+        StringBuilder sbApp = new StringBuilder();
+
+        sbApp.append(String.format("**********appium log最后%s行日志**********<br/>\n", lastLineNum));
+
+        appiumLog.forEach(s -> {
+            sbApp.append(s);
+            sbApp.append("<br/>");
+
+        });
+
+        //处理app log 日志
+        //error
+        List<String> adbLog = FileUtil.getErrorLine(new File(ideviceLogPath));
+        List<String> adbLog2 = FileUtil.readLastNLine(new File(ideviceLogPath), lastLineNum);
+
+        StringBuilder sbideviceLog = new StringBuilder();
+
+        if (!CollectionUtils.isEmpty(adbLog)) {
+            sbideviceLog.append("**********idevice log日志**********<br/>\n");
+            adbLog.forEach(s -> {
+                sbideviceLog.append(s);
+                sbideviceLog.append("<br/>");
+            });
+        }
+
+        sbideviceLog.append(String.format("**********idevice log最后%s行日志**********<br/>\n", lastLineNum));
+
+        adbLog2.forEach(s -> {
+            sbideviceLog.append(s);
+            sbideviceLog.append("<br/>");
+        });
+
+        record.setAppiumLog(sbApp.toString());
+        logger.info(sbApp.toString());
+        record.setAppLog(sbideviceLog.toString());
+        logger.info(sbideviceLog.toString());
+
     }
 
+
+    /**
+     * 清理环境
+     */
+    @Override
+    public void cleanEnv() {
+
+        ideviceUtils.killIdevice();
+
+    }
 
     public static void main(String... args) {
 

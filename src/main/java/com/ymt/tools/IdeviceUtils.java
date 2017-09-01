@@ -23,9 +23,14 @@ public class IdeviceUtils {
 
     private String udid = null;
 
-    public IdeviceUtils(String udid) {
+    private String deviceName = null;
+
+    public IdeviceUtils(String deviceName
+            ,String udid) {
 
         this.udid = udid;
+
+        this.deviceName=deviceName;
 
         cmdUtil = new CmdUtil();
 
@@ -49,7 +54,7 @@ public class IdeviceUtils {
 
             String line=lineArray[i];
 
-            Pattern pattern = Pattern.compile("(?<=[).*?(?=])");
+            Pattern pattern = Pattern.compile("(?<=\\[)(.+?)(?=\\])");
 
             Matcher matcher = pattern.matcher(line);
 
@@ -78,7 +83,7 @@ public class IdeviceUtils {
 
     public void getIdevicesyslog() {
 
-        String cmd = String.format("idevicesyslog -d -u %s |grep 'iPhone Buyer'", udid);
+        String cmd = String.format("idevicesyslog -d -u %s |grep '%s'", udid,"Buyer");
 
         BufferedReader br = null;
 
@@ -89,6 +94,7 @@ public class IdeviceUtils {
             String line;
 
             while ((line = br.readLine()) != null) {
+
 
                 logger.info(line);
 
@@ -123,7 +129,7 @@ public class IdeviceUtils {
 
         String appVersion=null;
 
-        String cmd = String.format("idevicesyslog -d -u %s |grep 'iPhone Buyer'", udid);
+        String cmd = String.format("idevicesyslog -d -u %s |grep '%s'", udid,"Buyer");
 
         BufferedReader br = null;
 
@@ -133,7 +139,9 @@ public class IdeviceUtils {
 
             String line;
 
+
             while ((line = br.readLine()) != null) {
+
 
                 if (line.toLowerCase().contains("appbuildversion")) {
 
@@ -173,7 +181,7 @@ public class IdeviceUtils {
 
         String pageInfo=null;
 
-        String cmd = String.format("idevicesyslog -d -u %s |grep 'iPhone Buyer'", udid);
+        String cmd = String.format("idevicesyslog -d -u %s |grep '%s'", udid,"Buyer");
 
         BufferedReader br = null;
 
@@ -237,10 +245,11 @@ public class IdeviceUtils {
 
     public static void main(String... args) {
 
-        IdeviceUtils adbUtils = new IdeviceUtils("2bad9d02");
+        IdeviceUtils adbUtils = new IdeviceUtils("","d36d600b4ece53a8bde8daf869790012a46842c3");
 
 
-        adbUtils.getPageInfo(new HashMap<>());
+        System.out.println("devices:"+adbUtils.getAppVersion());;
+
 
     }
 }

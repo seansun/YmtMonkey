@@ -53,8 +53,6 @@ public class AppiumServer extends Thread {
 
                 logger.info(line);
 
-                //System.out.println("line:"+line);
-
             }
         } catch (Exception e) {
             e.printStackTrace();

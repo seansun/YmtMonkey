@@ -27,6 +27,12 @@ public class Constant {
     }
 
 
+    public static boolean isAndroid=true;
+
+    public static String udid="";
+
+    public static String deviceName="";
+
     public static void main(String args[]) {
 
         System.out.println(Constant.getResultPath().getAbsolutePath());

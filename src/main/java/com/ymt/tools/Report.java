@@ -39,21 +39,26 @@ public class Report {
 
         try {
 
-            String deviceName = Engine.deviceName;
+            if (Constant.isAndroid){
 
-            AdbUtils adbUtils = new AdbUtils(deviceName);
 
-            if (record.getResults().size() < 1) {
-                logger.info("结果为空,无需生成report");
-                return;
-            }
-            logger.info("开始从设备 pull 截图到本地路径:{}", screenshotPath);
+                String deviceName = Engine.deviceName;
 
-            for (int i = 0; i < record.getResults().size(); i++) {
+                AdbUtils adbUtils = new AdbUtils(deviceName);
 
-                String fileName = String.format("monkey_screenShot%s.png", i + 1);
-                //将图片导入到本地
-                adbUtils.pullScreen(fileName, String.format("%s%s", screenshotPath, fileName));
+                if (record.getResults().size() < 1) {
+                    logger.info("结果为空,无需生成report");
+                    return;
+                }
+                logger.info("开始从设备 pull 截图到本地路径:{}", screenshotPath);
+
+                for (int i = 0; i < record.getResults().size(); i++) {
+
+                    String fileName = String.format("monkey_screenShot%s.png", i + 1);
+                    //将图片导入到本地
+                    adbUtils.pullScreen(fileName, String.format("%s%s", screenshotPath, fileName));
+
+                }
 
             }
 
@@ -104,29 +109,37 @@ public class Report {
             //日志
             Elements pageLog = doc.select("#logs");
 
-            pageLog.append(record.getAppiumLog());
+
             pageLog.append(record.getAppLog());
 
-            //生成性能图表
-            Elements script = doc.getElementsByTag("script").eq(4);
+            pageLog.append(record.getAppiumLog());
 
-            LimitQueue<Performance> performanceList = record.getPerfromance();
 
-            List<Integer> cpu = new ArrayList<>();
-            List<String> mem = new ArrayList<>();
-            List<String> timeLines = new ArrayList<>();
+            if (Constant.isAndroid){
 
-            for (int i = 0; i < performanceList.size(); i++) {
-                Performance p = performanceList.get(i);
-                cpu.add(p.getCpu());
-                mem.add(p.getMem());
-                timeLines.add(String.format("'%s'", p.getTime()));
+                //android 生成性能图表
+                Elements script = doc.getElementsByTag("script").eq(4);
+
+                LimitQueue<Performance> performanceList = record.getPerfromance();
+
+                List<Integer> cpu = new ArrayList<>();
+                List<String> mem = new ArrayList<>();
+                List<String> timeLines = new ArrayList<>();
+
+                for (int i = 0; i < performanceList.size(); i++) {
+                    Performance p = performanceList.get(i);
+                    cpu.add(p.getCpu());
+                    mem.add(p.getMem());
+                    timeLines.add(String.format("'%s'", p.getTime()));
+                }
+
+                String html = String.format("var totalMem=%s;var timeLine=%s;var data1=%s;var data2=%s;"
+                        , record.getTotalMem(), timeLines.toString(), cpu.toString(), mem.toString());
+
+                script.get(0).append(html);
             }
 
-            String html = String.format("var totalMem=%s;var timeLine=%s;var data1=%s;var data2=%s;"
-                    , record.getTotalMem(), timeLines.toString(), cpu.toString(), mem.toString());
 
-            script.get(0).append(html);
 
             //生成详细操作步骤
             writeDetail(result, doc);

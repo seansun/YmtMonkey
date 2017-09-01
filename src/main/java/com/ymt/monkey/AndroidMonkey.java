@@ -70,7 +70,7 @@ public class AndroidMonkey extends Monkey {
 
         if (CollectionUtils.isEmpty(activityDevices)) {
 
-            logger.info("当前活动的 Devices为 0");
+            logger.info("当前活动的 Android Devices为 0");
 
             System.exit(1);
 
@@ -108,8 +108,8 @@ public class AndroidMonkey extends Monkey {
 
             adbUtils = new AdbUtils(deviceName);
 
-            //抓取adb logcat 日志
-            adbUtils.start();
+            //收集adb 日志
+            ThreadPoolManage.joinScheduledThreadPool(getAdblog());
 
             //统计页面访问信息
             ThreadPoolManage.joinScheduledThreadPool(handlePageInfo(), 20, 3);
@@ -133,6 +133,32 @@ public class AndroidMonkey extends Monkey {
                 adbUtils.getAndroidVersion(), adbUtils.getScreenResolution()));
 
     }
+
+
+    /**
+     * android 后台抓取adb log
+     */
+    public Runnable getAdblog() {
+
+        Runnable runnable = new Runnable() {
+
+            public void run() {
+                try {
+
+                    logger.info("**********app 后台抓取android adb log **********");
+
+                    adbUtils.getLogcatLog();
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    logger.error("app后台抓取 adb 日志进程 error:{}", e);
+                }
+            }
+        };
+
+        return runnable;
+    }
+
 
 
     /**
