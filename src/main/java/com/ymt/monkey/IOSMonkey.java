@@ -67,6 +67,7 @@ public class IOSMonkey extends Monkey {
 
             engine = new IOSEngine(driver, results);
 
+
             //抓取Idevicesys log
             ThreadPoolManage.joinScheduledThreadPool(getIdevicesyslog());
 
