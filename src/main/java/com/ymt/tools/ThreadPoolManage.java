@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Created by sunsheng on 2017/7/4.
@@ -17,7 +14,7 @@ public class ThreadPoolManage {
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadPoolManage.class);
 
-    private static ScheduledExecutorService SERVICE=Executors.newScheduledThreadPool(6);
+    private static ScheduledExecutorService SERVICE=Executors.newScheduledThreadPool(10);
 
     private static List<Future> futureList=new ArrayList<Future>();
 

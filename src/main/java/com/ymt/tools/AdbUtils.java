@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * Created by sunsheng on 2017/5/10.
  */
-public class AdbUtils extends Thread {
+public class AdbUtils {
 
     private static final Logger logger = LoggerFactory.getLogger("adbLog");
 
@@ -36,6 +36,7 @@ public class AdbUtils extends Thread {
 
         init();
     }
+
 
     private void init() {
 
@@ -93,25 +94,22 @@ public class AdbUtils extends Thread {
     }
 
 
-    @Override
-    public void run() {
-
-        String cmd = String.format("adb -s %s logcat -b main -b system -b events -b radio *:I|%s com.ymatou.shop",
-                this.deviceName, findUtil);
-
-        cleanLogcat();
-
-        getLogcatLog(cmd);
-
-    }
-
     public void cleanLogcat() {
 
         cmdUtil.runAdbCmd(String.format("-s %s logcat -c", this.deviceName));
 
     }
 
-    private void getLogcatLog(String cmd) {
+    /**
+     * android 抓取adb 日志
+     *
+     */
+    public void getLogcatLog() {
+
+        cleanLogcat();
+
+        String cmd = String.format("adb -s %s logcat -b main -b system -b events -b radio *:I|%s com.ymatou.shop",
+                this.deviceName, findUtil);
 
         BufferedReader br = null;
 
@@ -130,7 +128,8 @@ public class AdbUtils extends Thread {
                     //发生crash,停止线程
 
                     ThreadPoolManage.stop = true;
-                    this.stop();
+
+                    //this.stop();
 
                 }
 

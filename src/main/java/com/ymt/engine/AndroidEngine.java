@@ -4,14 +4,9 @@ import com.ymt.entity.Action;
 import com.ymt.entity.Step;
 import com.ymt.tools.AdbUtils;
 import com.ymt.tools.LimitQueue;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by sunsheng on 2017/6/27.
@@ -33,7 +28,8 @@ public class AndroidEngine extends Engine {
 
         this.driver = driver;
 
-        adbUtils = new AdbUtils(deviceName);
+        adbUtils = new AdbUtils(driver.getCapabilities().getCapability("deviceName").toString());
+
 
     }
 
