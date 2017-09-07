@@ -167,25 +167,25 @@ public class Monkey {
 
                     case MathRandom.EVENT_TYPE_SWIPE_LEFT: {
 
-                        engine.swip(Action.SWIP_LEFT, 100);
+                        engine.swipe(Action.SWIP_LEFT);
 
                         break;
 
                     }
                     case MathRandom.EVENT_TYPE_SWIPE_RIGHT: {
 
-                        engine.swip(Action.SWIP_RIGHT, 100);
+                        engine.swipe(Action.SWIP_RIGHT);
 
                         break;
                     }
                     case MathRandom.EVENT_TYPE_SWIPE_UP: {
-                        engine.swip(Action.SWIP_UP, 100);
+                        engine.swipe(Action.SWIP_UP);
 
                         break;
                     }
                     case MathRandom.EVENT_TYPE_SWIPE_DOWN: {
 
-                        engine.swip(Action.SWIP_DOWN, 100);
+                        engine.swipe(Action.SWIP_DOWN);
 
                         break;
                     }

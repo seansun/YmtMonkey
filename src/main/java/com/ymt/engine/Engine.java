@@ -46,14 +46,13 @@ public class Engine {
     //默认滑动百分比
     private final int SWIPE_DEFAULT_PERCENT = 5;
 
-    //默认滑动持续时间100ms
-    private final int SWIPE_DURING = 100;
-
     private AppiumDriver driver;
 
     public static int width;
 
     public static int height;
+
+    private TouchAction action = new TouchAction(this.driver);
 
 
     public Engine() {
@@ -160,93 +159,70 @@ public class Engine {
         return height;
     }
 
+    /**
+     * 滑动的实现
+     * @param fromX
+     * @param formY
+     * @param toX
+     * @param toY
+     */
+    private void doSwipe(int fromX,int formY,int toX,int toY){
 
-    public void swipeToUp(int during) {
-        swipeToUp(during, SWIPE_DEFAULT_PERCENT);
+        action.press(fromX,formY).moveTo(toX,toY).release().perform();
+
     }
 
     /**
      * 向上滑动，
      *
-     * @param during
+     * @param percent
      */
-    public void swipeToUp(int during, int percent) {
-        int width = this.width;
-        int height = this.height;
+    public void swipeToUp(int percent) {
 
-        driver.swipe(width / 2, height * (percent - 1) / percent, width / 2, height / percent, during);
-    }
-
-    public void swipeToDown(int during) {
-        swipeToDown(during, SWIPE_DEFAULT_PERCENT);
-
-    }
-
-    public void swipeToLeft(int during) {
-
-        swipeToLeft(during, SWIPE_DEFAULT_PERCENT);
-
+        doSwipe(this.width/2, this.height * (percent - 1) / percent, this.width/2, this.height /percent);
 
     }
 
     /**
      * 向下滑动，
      *
-     * @param during 滑动时间
      */
-    public void swipeToDown(int during, int percent) {
-        int width = this.width;
-        int height = this.height;
+    public void swipeToDown(int percent) {
 
-        driver.swipe(width / 2, height / percent, width / 2, height * (percent - 1) / percent, during);
+        doSwipe(this.width/2, this.height /percent, this.width/2, this.height * (percent - 1) / percent);
     }
 
 
     /**
      * 向左滑动，
      *
-     * @param during  滑动时间
      * @param percent 位置的百分比，2-10， 例如3就是 从2/3滑到1/3
      */
-    public void swipeToLeft(int during, int percent) {
-        int width = this.width;
-        int height = this.height;
-
-
-        driver.swipe(width * (percent - 1) / percent, height / 2, width / percent, height / 2, during);
-    }
-
-
-    public void swipeToRight(int during) {
-        swipeToRight(during, SWIPE_DEFAULT_PERCENT);
+    public void swipeToLeft(int percent) {
+        doSwipe(width * (percent - 1) / percent, this.height /2, width / percent, this.height /2);
     }
 
     /**
      * 向右滑动，
      *
-     * @param during  滑动时间
      * @param percent 位置的百分比，2-10， 例如3就是 从1/3滑到2/3
      */
-    public void swipeToRight(int during, int percent) {
-        int width = this.width;
-        int height = this.height;
-
-        driver.swipe(width / percent, height / 2, width * (percent - 1) / percent, height / 2, during);
+    public void swipeToRight(int percent) {
+        doSwipe(width / percent, this.height /2, width * (percent - 1) / percent, this.height /2);
     }
 
     /**
      * 在某个方向上滑动
      *
      * @param direction 方向，UP DOWN LEFT RIGHT
-     * @param duration  持续时间
      */
-    public void swip(String direction, int duration) {
+    public void swipe(String direction) {
 
         String result = "pass";
 
         String screenShotName = null;
 
-        logger.info(" Event : {} ,duration {}", direction, duration);
+        logger.info(" Event : {} ,duration {}", direction);
 
         try {
             //截图
@@ -268,16 +244,16 @@ public class Engine {
 
             switch (direction) {
                 case Action.SWIP_UP:
-                    swipeToUp(duration);
+                    swipeToUp(SWIPE_DEFAULT_PERCENT);
                     break;
                 case Action.SWIP_DOWN:
-                    swipeToDown(duration);
+                    swipeToDown(SWIPE_DEFAULT_PERCENT);
                     break;
                 case Action.SWIP_LEFT:
-                    swipeToLeft(duration);
+                    swipeToLeft(SWIPE_DEFAULT_PERCENT);
                     break;
                 case Action.SWIP_RIGHT:
-                    swipeToRight(duration);
+                    swipeToRight(SWIPE_DEFAULT_PERCENT);
                     break;
             }
         } catch (Exception e) {
@@ -289,8 +265,6 @@ public class Engine {
             step.setResult(e.getStackTrace().toString());
 
         }
-
-
         step.setElementName("Page");
         step.setAction(direction);
         step.setScreenShotName(screenShotName);
@@ -307,15 +281,12 @@ public class Engine {
      */
     public void clickScreen(int x, int y) {
 
-
         String result = "pass";
 
         //截图
         String screenShotName = takeScreenShot();
 
         Step step = new Step();
-
-        TouchAction action = new TouchAction(this.driver);
 
         logger.info("Event 点击屏幕 x:{} ,y:{} ", x, y);
 
@@ -337,7 +308,6 @@ public class Engine {
      * home 键
      */
     public void homePress() {
-
 
     }
 
