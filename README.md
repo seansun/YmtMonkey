@@ -21,7 +21,7 @@
 
 # 2、简易流程
 
-  
+  ![Image text](https://raw.githubusercontent.com/seansun/YmtMonkey/master/img/flow.png)
 
 
 
