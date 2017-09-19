@@ -1,17 +1,16 @@
 package com.ymt.engine;
 
-import com.ymt.entity.Action;
+import com.ymt.entity.Constant;
 import com.ymt.entity.Step;
-import com.ymt.tools.AdbUtils;
 import com.ymt.tools.IdeviceUtils;
 import com.ymt.tools.LimitQueue;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,6 +28,8 @@ public class IOSEngine extends Engine {
     public IOSEngine(IOSDriver driver, LimitQueue<Step> results) {
 
         super(driver, results);
+
+        isAndroid=false;
 
         this.driver = driver;
 
@@ -67,11 +68,11 @@ public class IOSEngine extends Engine {
 
         logger.info("Event KEYCODE_HOME");
 
-        driver.runAppInBackground(1);
+        driver.runAppInBackground(Duration.ofSeconds(1));
 
 
         step.setElementName("Page");
-        step.setAction(Action.HOME_PRESS);
+        step.setAction(Constant.HOME_PRESS);
 
 
         step.setScreenShotName(screenShotName);
@@ -104,7 +105,7 @@ public class IOSEngine extends Engine {
 
         logger.info("Event Click_BACK");
 
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
         try {
 
@@ -119,7 +120,7 @@ public class IOSEngine extends Engine {
         }
 
         step.setElementName("Page");
-        step.setAction(Action.BACK);
+        step.setAction(Constant.CLICK_BACK);
         step.setScreenShotName(screenShotName);
         step.setResult(result);
 

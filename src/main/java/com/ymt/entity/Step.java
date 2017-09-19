@@ -62,8 +62,6 @@ public class Step {
     }
 
 
-
-
     public int getX() {
         return x;
     }

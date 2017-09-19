@@ -10,6 +10,7 @@
     <!--TRACE < DEBUG < INFO < WARN < ERROR-->
     <property name="level" value="INFO"/>
 
+
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- 日志输出编码 -->

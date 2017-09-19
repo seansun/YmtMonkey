@@ -1,6 +1,6 @@
 package com.ymt.engine;
 
-import com.ymt.entity.Action;
+import com.ymt.entity.Constant;
 import com.ymt.entity.Step;
 import com.ymt.tools.AdbUtils;
 import com.ymt.tools.LimitQueue;
@@ -25,6 +25,7 @@ public class AndroidEngine extends Engine {
     public AndroidEngine(AndroidDriver driver, LimitQueue<Step> results) {
 
         super(driver, results);
+
 
         this.driver = driver;
 
@@ -64,7 +65,7 @@ public class AndroidEngine extends Engine {
 
 
         step.setElementName("Page");
-        step.setAction(Action.HOME_PRESS);
+        step.setAction(Constant.HOME_PRESS);
         step.setScreenShotName(screenShotName);
         step.setResult(result);
 
@@ -98,7 +99,7 @@ public class AndroidEngine extends Engine {
         driver.pressKeyCode(KEYCODE_BACK);
 
         step.setElementName("Page");
-        step.setAction(Action.BACK);
+        step.setAction(Constant.CLICK_BACK);
         step.setScreenShotName(screenShotName);
         step.setResult(result);
 

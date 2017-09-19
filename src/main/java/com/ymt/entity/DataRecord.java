@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * Created by sunsheng on 2017/5/5.
+ * Created by sunsheng
  */
 public class DataRecord {
 
@@ -14,7 +14,7 @@ public class DataRecord {
     private String appInfo;
     private String appLog;
     private String appiumLog;
-    private String OperaterLog;
+    private String operaterLog;
     private String duringTime;
 
     private Map<String, Integer> pageCount;
@@ -87,11 +87,11 @@ public class DataRecord {
     }
 
     public String getOperaterLog() {
-        return OperaterLog;
+        return operaterLog;
     }
 
     public void setOperaterLog(String operaterLog) {
-        OperaterLog = operaterLog;
+        operaterLog = operaterLog;
     }
 
 

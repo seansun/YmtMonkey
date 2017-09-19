@@ -1,23 +1,18 @@
 package com.ymt.engine;
 
-import com.ymt.entity.Action;
 import com.ymt.entity.Constant;
 import com.ymt.entity.Step;
 import com.ymt.tools.LimitQueue;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 
 public class Engine {
@@ -44,6 +39,9 @@ public class Engine {
     //默认滑动百分比
     private final int SWIPE_DEFAULT_PERCENT = 5;
 
+    //默认滑动等待时间 100ms
+    private final Duration SWIPE_WAIT_TIME=Duration.ofMillis(100);
+
     private AppiumDriver driver;
 
     public static int width;
@@ -52,11 +50,9 @@ public class Engine {
 
     public static String deviceName;
 
-    private  TouchAction action = new TouchAction(this.driver);
+    public static boolean isAndroid=true;
 
-    public Engine() {
-
-    }
+    private  TouchAction action;
 
 
     public Engine(AppiumDriver driver, LimitQueue<Step> results) {
@@ -74,6 +70,9 @@ public class Engine {
 
 
         this.deviceName = driver.getCapabilities().getCapability("deviceName").toString();
+
+
+        this.action=new TouchAction(this.driver);
 
 
         logger.info("当前设备号 deviceName:{}", deviceName);
@@ -100,13 +99,6 @@ public class Engine {
 
     }
 
-    public int getScreenIndex() {
-        return screenIndex;
-    }
-
-    public int getMaxScreenshotCount() {
-        return MAX_SCREENSHOT_COUNT;
-    }
 
     public int getTaskId() {
 
@@ -159,10 +151,19 @@ public class Engine {
         return this.height;
     }
 
+    /**
+     *
+     * @param startx
+     * @param starty
+     * @param endx
+     * @param endy
+     */
 
-    private void doSwipe(int fromX,int fromY,int toX,int toY){
+    private void doSwipe(int startx, int starty, int endx, int endy){
 
-        action.press(fromX,fromY).moveTo(toX,toY).release().perform();
+        action.press(startx,starty).waitAction(SWIPE_WAIT_TIME).moveTo(endx,endy).release();
+
+        action.perform();
         
     }
 
@@ -239,16 +240,17 @@ public class Engine {
         try {
 
             switch (direction) {
-                case Action.SWIP_UP:
+
+                case Constant.SWIPE_UP:
                     swipeToUp(SWIPE_DEFAULT_PERCENT);
                     break;
-                case Action.SWIP_DOWN:
+                case Constant.SWIPE_DOWN:
                     swipeToDown(SWIPE_DEFAULT_PERCENT);
                     break;
-                case Action.SWIP_LEFT:
+                case Constant.SWIPE_LEFT:
                     swipeToLeft(SWIPE_DEFAULT_PERCENT);
                     break;
-                case Action.SWIP_RIGHT:
+                case Constant.SWIPE_RIGHT:
                     swipeToRight(SWIPE_DEFAULT_PERCENT);
                     break;
             }
@@ -292,7 +294,7 @@ public class Engine {
         action.tap(x, y).perform();
 
         step.setElementName("Page");
-        step.setAction(Action.CLICK_SCREEN);
+        step.setAction(Constant.CLICK_SCREEN);
         step.setX(x);
         step.setY(y);
         step.setScreenShotName(screenShotName);

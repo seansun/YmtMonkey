@@ -1,7 +1,7 @@
 package com.ymt.entity;
 
 /**
- * Created by sunsheng on 2017/4/14.
+ * Created by sunsheng
  */
 public class Capability {
 
@@ -13,7 +13,6 @@ public class Capability {
     private String autoLaunch;
     private String noReset;
     private int runTime;
-
 
 
     public int getNewCommandTimeout() {

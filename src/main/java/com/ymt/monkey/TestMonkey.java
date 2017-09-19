@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by sunsheng on 2017/5/26.
+ * Created by sunsheng
  */
 public class TestMonkey {
 
@@ -36,11 +36,6 @@ public class TestMonkey {
 
     }
 
-    @Test
-    public void testJsoup() {
-
-
-    }
 
     @Test
     public void testIosMonkey() {
@@ -81,20 +76,51 @@ public class TestMonkey {
                 capabilities);
 
 
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
 
-            clickScreen(100, 100, driver);
+            //clickScreen(100, 100, driver);
 
             try {
 
-                System.out.println("pagesource:" + driver.getPageSource());
+                    //System.out.println("pagesource:" + driver.getPageSource());
 
-                WebElement backButton = driver.findElement(By.xpath("//*[@name='back']"));
+
+                    WebElement backButton = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='back']"));
+
+
+                System.out.println("isEnabled:" + backButton.isEnabled());
+                System.out.println("isDisplayed:" + backButton.isDisplayed());;
 
                 backButton.click();
+
+
+                //System.out.println("pagesource:" + driver.getPageSource());
+
+                //System.out.println("is contains 洋码头:"+driver.getPageSource().contains("洋码头"));
+
+
+                //WebElement backButton = driver.findElementByXPath("//XCUIElementTypeWindow[0]");
+
+                ///System.out.println("app name:"+(backButton instanceof WebElement));
+
+
+                //System.out.println("app name:"+backButton.getAttribute("label"));
+
+               // backButton.click();
+                //System.out.println("pagesource:" + driver.getPageSource());
+
+
+                //WebElement backButton = driver.findElementByXPath("//XCUIElementTypeWindow[0]");
+
+                ///System.out.println("app name:"+(backButton instanceof WebElement));
+
+
+                //System.out.println("app name:"+backButton.getAttribute("label"));
+
+               // backButton.click();
 
             } catch (Exception e) {
 
@@ -102,7 +128,7 @@ public class TestMonkey {
                 System.out.println("time out NoSuchElementException");
             }
 
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         }
 
 
@@ -116,6 +142,11 @@ public class TestMonkey {
            <XCUIElementTypeButton type="XCUIElementTypeButton" name="返回" label="返回" enabled="true" visible="false"
            x="8" y="31" width="21" height="22"/>
 */
+
+        // pagesource:<?xml version="1.0" encoding="UTF-8"?><AppiumAUT><XCUIElementTypeApplication type="XCUIElementTypeApplication" name=" " label=" " enabled="true" visible="true" x="0" y="0" width="320" height="568">
+
+
+        // pagesource:<?xml version="1.0" encoding="UTF-8"?><AppiumAUT><XCUIElementTypeApplication type="XCUIElementTypeApplication" name="微信" label="微信" enabled="true" visible="true" x="0" y="0" width="320" height="568">
 
 
     }

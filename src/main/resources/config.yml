@@ -6,32 +6,26 @@ capability:
 androidCapability:
   appPackage: "com.ymatou.shop"
   appActivity: ".ui.activity.SplashActivity"
-  logCmd: "adb -s #udid# logcat -b main -b system -b events -b radio *:D | grep com.ymatou.shop"
   deviceNames:
     #模拟器
     - deviceName: "127.0.0.1:62001"
       platformVersion: "4.4.2"
-      #app: ""
       appium: "http://127.0.0.1:4723/wd/hub"
     #荣耀8
     - deviceName: "NXTDU16B05010871"
       platformVersion: "7.0"
-      #aapp: ""
       appium: "http://127.0.0.1:4723/wd/hub"
     #vivo
     - deviceName: "94fabcfa"
       platformVersion: "5.1.1"
-      #app: ""
       appium: "http://127.0.0.1:4723/wd/hub"
    #xiaomi
     - deviceName: "INMN8TDIK7QKH6EI"
       platformVersion: "6.0"
-      #app: ""
       appium: "http://127.0.0.1:4723/wd/hub"
    #锤子
     - deviceName: "2bad9d02"
       platformVersion: "5.1.1"
-      #app: ""
       appium: "http://127.0.0.1:4723/wd/hub"
 iosCapability:
   deviceName: "iPhone SE"

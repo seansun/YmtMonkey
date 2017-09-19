@@ -3,7 +3,7 @@ package com.ymt.entity;
 import java.io.File;
 
 /**
- * Created by sunsheng on 2017/5/10.
+ * Created by sunsheng
  */
 public class Constant {
 
@@ -13,25 +13,20 @@ public class Constant {
         return new File(ROOT, "results/");
     }
 
+    public static final String CLICK_SCREEN="clickScreen";
 
-    public static File getMinicap() {
-        return new File(ROOT, "minicap");
-    }
+    public static final String SWIPE_UP = "swipeUp";
 
-    public static File getMinicapBin() {
-        return new File(ROOT, "minicap/bin");
-    }
+    public static final String SWIPE_DOWN = "swipeDown";
 
-    public static File getMinicapSo() {
-        return new File(ROOT, "minicap/shared");
-    }
+    public static final String SWIPE_LEFT = "swipeLeft";
 
+    public static final String SWIPE_RIGHT = "swipeRight";
 
-    public static boolean isAndroid=true;
+    public static final String HOME_PRESS="homePress";
 
-    public static String udid="";
+    public static final String CLICK_BACK="back";
 
-    public static String deviceName="";
 
     public static void main(String args[]) {
 
