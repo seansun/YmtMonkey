@@ -20,6 +20,10 @@ public class HandleApp {
 
     private static final Logger logger = LoggerFactory.getLogger(HandleApp.class);
 
+
+    private static final String APP_NAME="洋码头";
+
+
     public static Runnable launchAndroidAPP(String appPackageName, String deviceName, AndroidDriver driver) {
 
         AdbUtils adb = new AdbUtils(deviceName);
@@ -58,11 +62,7 @@ public class HandleApp {
 
     }
 
-    public static Runnable launchIosAPP(String appPackageName, String deviceName, IOSDriver driver) {
-
-        String udid=driver.getCapabilities().getCapability("udid").toString();
-        String bundleId = driver.getCapabilities().getCapability("bundleId").toString();;
-
+    public static Runnable launchIosAPP(IOSDriver driver) {
 
         Runnable runnable = new Runnable() {
 
@@ -71,57 +71,15 @@ public class HandleApp {
 
                     logger.info("**********启动ios app守护进程**********");
 
-
-                    String cmd = String.format("idevicesyslog -d -u %s'", udid);
-
-                    BufferedReader br = null;
-
-                    try {
-
-                        br = new CmdUtil().getBufferedReader(cmd);
-
-                        String line;
-                        String curbundleid;
+                    if (!driver.getPageSource().contains(APP_NAME)) {
 
 
-                        while ((line = br.readLine()) != null) {
+                        logger.info("**********当前启动的APP ，非测试APP，重新呼起测试APP**********");
 
-                            if(line.contains("HW kbd: currently")){
-                                System.out.println("=============="+line);
-                                if(line.split(" ")[8].equals("currently")){
+                        driver.launchApp();
 
-                                    curbundleid = line.split(" ")[9];
+                        Thread.sleep(200);
 
-                                }else{
-
-                                    curbundleid = line.split(" ")[10];
-                                }
-                                //System.out.println("=============="+curbundleid);
-
-                                if(!curbundleid.equals(bundleId)){
-
-                                    logger.info("**********当前启动的APP bundleid是【{}】，非测试APP，重新呼起测试APP:{}**********", curbundleid);
-
-                                    driver.launchApp();
-
-                                    Thread.sleep(200);
-
-                                }
-                            }
-
-
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (br != null) {
-                            try {
-                                br.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
                     }
 
 
@@ -136,4 +94,6 @@ public class HandleApp {
         return runnable;
 
     }
+
+
 }

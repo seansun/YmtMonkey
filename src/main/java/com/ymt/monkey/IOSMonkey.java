@@ -10,18 +10,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.CollectionUtils;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+
 
 /**
  * Created by sunsheng on 2017/6/27.
@@ -41,7 +38,6 @@ public class IOSMonkey extends Monkey {
 
         this.iosCapability = config.getIosCapability();
 
-        Constant.isAndroid=false;
 
     }
 
@@ -182,6 +178,18 @@ public class IOSMonkey extends Monkey {
 
         return runnable;
     }
+
+    /**
+     * 监控app 运行
+     */
+    @Override
+    public void handleApp() {
+
+        //后台开一线程监控当前运行的android app 包名
+        ThreadPoolManage.joinScheduledThreadPool(HandleApp.launchIosAPP(driver), 30, 30);
+
+    }
+
 
 
     /***

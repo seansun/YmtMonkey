@@ -238,7 +238,7 @@ public class FileUtil {
      */
     public static void main(String[] args) {
 
-        upload("C:\\Users\\sunsheng\\Desktop\\YmtMonkey\\results\\20170706\\20170706Monkey_report1.html");
+        upload("/Users/ymt/IdeaProjects/YmtMonkey/results/20170919/report1.html");
 
        // upload("C:\\Users\\sunsheng\\Desktop\\YmtMonkey\\results\\20170704\\screenshots\\1\\screenShot1_ps.png");
     }

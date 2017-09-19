@@ -26,12 +26,14 @@ public class Report {
 
     private static final Logger logger = LoggerFactory.getLogger(Report.class);
 
-    private boolean upload = true;
+    private boolean upload = false;
 
     public static String REPORT_PATH = Constant.getResultPath().getPath()
             + File.separator + Engine.currentTime + File.separator;
 
     private String screenshotPath = Engine.SCREENSHOT_PATH;
+
+
 
     public void generateReport(DataRecord record, String reportName) {
 
@@ -39,7 +41,7 @@ public class Report {
 
         try {
 
-            if (Constant.isAndroid){
+            if (Engine.isAndroid){
 
 
                 String deviceName = Engine.deviceName;
@@ -115,7 +117,7 @@ public class Report {
             pageLog.append(record.getAppiumLog());
 
 
-            if (Constant.isAndroid){
+            if (Engine.isAndroid){
 
                 //android 生成性能图表
                 Elements script = doc.getElementsByTag("script").eq(4);
@@ -252,7 +254,7 @@ public class Report {
         graph.setColor(Color.red);
         graph.setFont(new Font("Serif", Font.PLAIN, 120));
 
-        if (step.getAction().equals(Action.CLICK_SCREEN)) {
+        if (step.getAction().equals(Constant.CLICK_SCREEN)) {
 
             graph.setColor(Color.blue);
 

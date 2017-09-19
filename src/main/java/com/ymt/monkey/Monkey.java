@@ -163,42 +163,45 @@ public class Monkey {
 
             while (true) {
 
-                switch (mathRandom.percentageRandom()) {
+                switch (mathRandom.getRandomOperation()) {
 
-                    case MathRandom.EVENT_TYPE_SWIPE_LEFT: {
+                    case Constant.SWIPE_LEFT: {
 
-                        engine.swipe(Action.SWIP_LEFT);
+                        engine.swipe(Constant.SWIPE_LEFT);
 
                         break;
 
                     }
-                    case MathRandom.EVENT_TYPE_SWIPE_RIGHT: {
+                    case Constant.SWIPE_RIGHT: {
 
-                        engine.swipe(Action.SWIP_RIGHT);
-
-                        break;
-                    }
-                    case MathRandom.EVENT_TYPE_SWIPE_UP: {
-                        engine.swipe(Action.SWIP_UP);
+                        engine.swipe(Constant.SWIPE_RIGHT);
 
                         break;
                     }
-                    case MathRandom.EVENT_TYPE_SWIPE_DOWN: {
-
-                        engine.swipe(Action.SWIP_DOWN);
+                    case Constant.SWIPE_UP: {
+                        engine.swipe(Constant.SWIPE_UP);
 
                         break;
                     }
-                    case MathRandom.EVENT_TYPE_BACK: {
+                    case Constant.SWIPE_DOWN: {
+
+                        engine.swipe(Constant.SWIPE_DOWN);
+
+                        break;
+                    }
+
+                    case Constant.CLICK_BACK: {
+
                         engine.back();
+
                         break;
                     }
-                    case MathRandom.EVENT_TYPE_HOMEKEY: {
+                    case Constant.HOME_PRESS: {
 
                         engine.homePress();
                         break;
                     }
-                    case MathRandom.EVENT_TYPE_TAP: {
+                    case Constant.CLICK_SCREEN: {
 
                         int x = random.nextInt(width);
                         int y = random.nextInt(height);
