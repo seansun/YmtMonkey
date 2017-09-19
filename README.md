@@ -27,5 +27,8 @@
 
   ![Image text](https://raw.githubusercontent.com/seansun/YmtMonkey/master/img/flow.png)
 
+# 3、report
+
+  ![Image text](https://github.com/seansun/YmtMonkey/blob/master/img/repor.png)
 
 
