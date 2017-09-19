@@ -17,7 +17,9 @@
 
 - 4 android 会收集monkey 测试中操作 设备的cpu,memery 数据
 
-- 4 支持crash 后，自动重新rerun
+- 5 收集app 页面访问统计数据
+
+- 6 支持crash 后，自动重新rerun
 
 # 2、简易流程
 
